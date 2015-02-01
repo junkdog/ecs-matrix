@@ -1,6 +1,6 @@
 ## ecs-matrix
 
-A small command-line tool for generate a matrix describing references between [ECS][ecs] classes in your game.
+A small command-line tool for generating a matrix describing references between [ECS][ecs] classes in your game.
 Supports [artemis-odb][artemis] and [ashley][ashley]. Note that artemis-odb also provides this functionality
 via its maven, gradle and cli tool.
 
