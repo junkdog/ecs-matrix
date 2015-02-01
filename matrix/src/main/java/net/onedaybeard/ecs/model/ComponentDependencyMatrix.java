@@ -15,6 +15,8 @@ import org.objectweb.asm.Opcodes;
 import com.x5.template.Chunk;
 import com.x5.template.Theme;
 
+import static java.util.Arrays.asList;
+
 public class ComponentDependencyMatrix implements Opcodes  {
 	private final File root;
 	private final File output;
@@ -26,11 +28,33 @@ public class ComponentDependencyMatrix implements Opcodes  {
 		this.output = output;
 	}
 	
+	public String detectAndProcess() {
+		EcsTypeInspector typeInspector;
+
+		for (String ecs : asList("artemis", "ashley")) {
+			typeInspector = new EcsTypeInspector(root, "/" + ecs);
+			if (typeInspector.foundEcsClasses()) {
+				process(typeInspector);
+				return "Found ECS framework: " + ecs;
+			}
+		}
+
+		return "Failed finding any ECS related classes.";
+	}
+
 	public void process() {
-		EcsTypeInspector typeInspector = new EcsTypeInspector(root);
+		process("");
+	}
+
+	public void process(String resourcePrefix) {
+		EcsTypeInspector typeInspector = new EcsTypeInspector(root, resourcePrefix);
+		process(typeInspector);
+	}
+
+	private void process(EcsTypeInspector typeInspector) {
 		write(typeInspector.getTypeMap(), typeInspector.getMatrixData());
 	}
-	
+
 	private void write(SortedMap<String, List<RowTypeMapping>> mappedSystems, MatrixData matrix) {
 		Theme theme = new Theme();
 		Chunk chunk = theme.makeChunk("matrix");

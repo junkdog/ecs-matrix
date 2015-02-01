@@ -14,7 +14,7 @@ public class EcsTypeInspectorTest {
 
 	@BeforeClass
 	public static void init() {
-		inspector = new EcsTypeInspector(TestHelper.classRootPath());
+		inspector = new EcsTypeInspector(TestHelper.classRootPath(), "");
 		matrix = inspector.getMatrixData();
 		assertNotNull(matrix);
 	}

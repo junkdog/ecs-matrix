@@ -19,8 +19,8 @@ public class EcsTypeInspector {
 	private EcsMapping model = null;
 	private final ConfigurationResolver initialTypeScan;
 
-	public EcsTypeInspector(File root) {
-		this.initialTypeScan = new ConfigurationResolver(root);
+	public EcsTypeInspector(File root, String resourcePrefix) {
+		this.initialTypeScan = new ConfigurationResolver(root, resourcePrefix);
 
 		if (initialTypeScan.components.size() == 0
 				&& initialTypeScan.systems.size() == 0
@@ -62,6 +62,10 @@ public class EcsTypeInspector {
 	MatrixData getMatrixData() {
 		assert model != null;
 		return model.matrixData;
+	}
+
+	boolean foundEcsClasses() {
+		return model != null;
 	}
 
 	private List<EcsTypeData> findEcsTypes(File root) {

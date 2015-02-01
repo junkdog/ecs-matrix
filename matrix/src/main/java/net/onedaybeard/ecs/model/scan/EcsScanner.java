@@ -5,8 +5,6 @@ import org.objectweb.asm.*;
 
 class EcsScanner extends ClassVisitor {
 	
-	private static final Type COMPONENT_MAPPER = Type.getType("Lcom/artemis/ComponentMapper;");
-	
 	private final EcsTypeData config;
 	private final ConfigurationResolver resolver;
 
@@ -35,7 +33,7 @@ class EcsScanner extends ClassVisitor {
 			config.systems.add(type);
 		} else if (resolver.managers.contains(type)) {
 			config.managers.add(type);
-		} else if (COMPONENT_MAPPER.equals(type)) {
+		} else if (resolver.componentMapper.equals(type)) {
 			String componentDesc = signature.substring(signature.indexOf('<') + 1, signature.indexOf('>'));
 			config.optional.add(Type.getType(componentDesc));
 		} else if (resolver.factories.contains(type)) {

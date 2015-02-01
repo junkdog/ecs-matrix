@@ -20,14 +20,22 @@ import net.onedaybeard.ecs.util.ClassFinder;
  * while matching against known parent classes.
  */
 public final class ConfigurationResolver {
+	public final String[] aspectRequire;
+	public final String[] aspectRequireOne;
+	public final String[] aspectExclude;
+
 	public Set<Type> managers;
 	public Set<Type> systems;
 	public Set<Type> components;
 	public Set<Type> factories;
+	public Type componentMapper;
 	private TypeConfiguration typeConfiguration;
 	private final Map<Type,Set<Type>> parentChildrenMap;
+
+	private final String resourcePrefix;
 	
-	public ConfigurationResolver(File rootFolder) {
+	public ConfigurationResolver(File rootFolder, String ecsResourcePrefix) {
+		this.resourcePrefix = ecsResourcePrefix;
 		if (!rootFolder.isDirectory())
 			throw new RuntimeException("Expected folder - " + rootFolder);
 		
@@ -36,12 +44,16 @@ public final class ConfigurationResolver {
 		components = new HashSet<Type>();
 		factories = new HashSet<Type>();
 		
-		typeConfiguration = new TypeConfiguration();
+		typeConfiguration = new TypeConfiguration(resourcePrefix);
 		systems.addAll(typeConfiguration.systems);
 		managers.addAll(typeConfiguration.managers);
 		components.addAll(typeConfiguration.components);
 		factories.addAll(typeConfiguration.factories);
-		
+		componentMapper = typeConfiguration.componentMapper;
+		aspectRequire = typeConfiguration.aspectRequire;
+		aspectRequireOne = typeConfiguration.aspectRequireOne;
+		aspectExclude = typeConfiguration.aspectExclude;
+
 		parentChildrenMap = new HashMap<Type,Set<Type>>();
 		
 		List<File> classes = ClassFinder.find(rootFolder);
@@ -90,7 +102,7 @@ public final class ConfigurationResolver {
 	}
 	
 	public void clearDefaultTypes() {
-		TypeConfiguration tc = new TypeConfiguration();
+		TypeConfiguration tc = new TypeConfiguration(resourcePrefix);
 		systems.removeAll(tc.systems);
 		managers.removeAll(tc.managers);
 		components.removeAll(tc.components);

@@ -7,8 +7,6 @@ import org.objectweb.asm.Type;
 
 import java.util.*;
 
-import static net.onedaybeard.ecs.util.MatrixStringUtil.shortName;
-
 public class EcsMapping {
 	final MatrixData matrixData;
 	final List<RowTypeMapping> typeMappings;
@@ -20,9 +18,10 @@ public class EcsMapping {
 		resolver.clearDefaultTypes();
 
 		typeMappings = new ArrayList<RowTypeMapping>();
+		Map<Type, Integer> componentIndices = getComponentIndices(componentSet);
 		for (EcsTypeData system : artemisTypes) {
 			RowTypeMapping mappedType = RowTypeMapping.from(
-					system, resolver, getComponentIndices(componentSet)); // TODO: move to outside loop
+					system, resolver, componentIndices);
 			typeMappings.add(mappedType);
 		}
 

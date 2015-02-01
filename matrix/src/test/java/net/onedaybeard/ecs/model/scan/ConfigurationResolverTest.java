@@ -24,7 +24,7 @@ public final class ConfigurationResolverTest {
 
 	@BeforeClass
 	public static void setup() {
-		resolver = new ConfigurationResolver(TestHelper.classRootPath());
+		resolver = new ConfigurationResolver(TestHelper.classRootPath(), "");
 		resolver.clearDefaultTypes();
 	}
 

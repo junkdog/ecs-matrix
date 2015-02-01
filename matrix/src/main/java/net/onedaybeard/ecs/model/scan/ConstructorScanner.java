@@ -16,15 +16,6 @@ public final class ConstructorScanner extends MethodVisitor {
 	
 	private final Set<Type> queuedComponents;
 	
-	private static final String[] ASPECT_REQUIRE = {"getAspectForAll", "getAspectFor", "all"};
-	private static final String[] ASPECT_REQUIRE_ONE = {"one", "getAspectForOne"};
-	private static final String[] ASPECT_EXCLUDE = {"exclude"};
-	static {
-		Arrays.sort(ASPECT_REQUIRE);
-		Arrays.sort(ASPECT_REQUIRE_ONE);
-		Arrays.sort(ASPECT_EXCLUDE);
-	}
-	
 	public ConstructorScanner(EcsTypeData config, ConfigurationResolver resolver) {
 		super(ASM4);
 		this.config = config;
@@ -42,13 +33,13 @@ public final class ConstructorScanner extends MethodVisitor {
 	
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc) {
-		if (Arrays.binarySearch(ASPECT_REQUIRE, name) >= 0) {
+		if (Arrays.binarySearch(resolver.aspectRequire, name) >= 0) {
 			config.requires.addAll(queuedComponents);
 			queuedComponents.clear();
-		} else if (Arrays.binarySearch(ASPECT_REQUIRE_ONE, name) >= 0) {
+		} else if (Arrays.binarySearch(resolver.aspectRequireOne, name) >= 0) {
 			config.requiresOne.addAll(queuedComponents);
 			queuedComponents.clear();
-		} else if (Arrays.binarySearch(ASPECT_EXCLUDE, name) >= 0) {
+		} else if (Arrays.binarySearch(resolver.aspectExclude, name) >= 0) {
 			config.exclude.addAll(queuedComponents);
 			queuedComponents.clear();
 		}

@@ -69,6 +69,8 @@
 	<modules>
 		<module>matrix</module>
 		<module>matrix-artemis</module>
+		<module>matrix-ashley</module>
+		<module>matrix-cli</module>
   </modules>
 	
 	<profiles>
