@@ -3,7 +3,7 @@
 A small command-line tool for generate a matrix describing references between ECS classes in your game.
 Supports [artemis-odb][artemis] and [ashley][ashley].
 
-  [artemis-odb]: https://github.com/junkdog/artemis-odb
+  [artemis]: https://github.com/junkdog/artemis-odb
   [ashley]: https://github.com/libgdx/ashley
 
 
