@@ -40,7 +40,9 @@ Usage: matrix-cli-<version>.jar [options]
 #### Example
 ```
 $ cd ashley-superjumper/
-$ java -jar /path/to/matrix-cli-0.1.0-SNAPSHOT.jar -c core/build/classes/main/ -l "Ashley SuperJumper"
+$ java -jar /path/to/matrix-cli-0.1.0-SNAPSHOT.jar \
+> -c core/build/classes/main/ \
+> -l "Ashley SuperJumper"
 Found ECS framework: ashley
 $ ls matrix.html 
 matrix.html
