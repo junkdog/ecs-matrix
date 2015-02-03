@@ -10,7 +10,7 @@
 
 	<groupId>net.onedaybeard.ecs</groupId>
 	<artifactId>matrix</artifactId>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>pom</packaging>
 	<name>ECS Matrix</name>
 	<description>Component dependency matrix generator for artemis-odb and ashley</description>

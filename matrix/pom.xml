@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>net.onedaybeard.ecs</groupId>
 		<artifactId>matrix</artifactId>
-		<version>0.1.0-SNAPSHOT</version>
+		<version>0.1.0</version>
 	</parent>
 	<artifactId>ecs-matrix</artifactId>
 	<packaging>jar</packaging>
@@ -55,7 +55,7 @@
 		<dependency>
 			<groupId>net.onedaybeard.artemis</groupId>
 			<artifactId>artemis-odb</artifactId>
-			<version>0.8.2-SNAPSHOT</version>
+			<version>0.8.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
