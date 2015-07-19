@@ -1,7 +1,5 @@
 package net.onedaybeard.ecs.model.scan;
 
-import static net.onedaybeard.ecs.model.scan.TypeConfiguration.type;
-
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
@@ -31,7 +29,7 @@ public class SurfaceTypeCollector extends ClassVisitor {
 				resolver.systems.add(TypeConfiguration.type(name));
 			} else if (mainTypes.managers.contains(superType)) {
 				resolver.managers.add(TypeConfiguration.type(name));
-			} else if (interfaces.length > 0) {
+			} else if (!name.endsWith("Impl") && interfaces.length > 0) {
 				for (String iface : interfaces) {
 					if (mainTypes.factories.contains(TypeConfiguration.type(iface))) {
 						resolver.factories.add(TypeConfiguration.type(name));
