@@ -39,13 +39,13 @@ public class EcsMapping {
 	}
 
 
-	private static SortedSet<Type> findComponents(List<EcsTypeData> artemisTypes) {
+	private static SortedSet<Type> findComponents(List<EcsTypeData> ecsTypes) {
 		SortedSet<Type> componentSet = new TreeSet<Type>(new ShortNameComparator());
-		for (EcsTypeData artemis : artemisTypes) {
-			componentSet.addAll(artemis.requires);
-			componentSet.addAll(artemis.requiresOne);
-			componentSet.addAll(artemis.optional);
-			componentSet.addAll(artemis.exclude);
+		for (EcsTypeData ecs : ecsTypes) {
+			componentSet.addAll(ecs.requires);
+			componentSet.addAll(ecs.requiresOne);
+			componentSet.addAll(ecs.optional);
+			componentSet.addAll(ecs.exclude);
 		}
 		return componentSet;
 	}

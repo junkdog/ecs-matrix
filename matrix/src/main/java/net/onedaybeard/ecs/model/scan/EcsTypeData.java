@@ -24,4 +24,14 @@ public class EcsTypeData {
 	public Type current;
 	
 	EcsTypeData() {}
+
+	public void cleanSelfTypeReferences() {
+		requires.remove(current);
+		requiresOne.remove(current);
+		optional.remove(current);
+		exclude.remove(current);
+		systems.remove(current);
+		managers.remove(current);
+		factories.remove(current);
+	}
 }

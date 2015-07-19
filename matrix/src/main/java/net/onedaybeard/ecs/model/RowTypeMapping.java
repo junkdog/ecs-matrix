@@ -102,7 +102,8 @@ public final class RowTypeMapping {
 		
 		ComponentReference[] components = new ComponentReference[componentIndices.size()];
 		Arrays.fill(components, ComponentReference.NOT_REFERENCED);
-		
+
+		typeData.cleanSelfTypeReferences();
 		mapComponents(typeData.requires, ComponentReference.REQUIRED, componentIndices, components);
 		mapComponents(typeData.requiresOne, ComponentReference.ANY, componentIndices, components);
 		mapComponents(typeData.optional, ComponentReference.OPTIONAL, componentIndices, components);
