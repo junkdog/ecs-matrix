@@ -19,12 +19,12 @@ $ mvn clean package
 
 
 ### Downloading
-- http://repo1.maven.org/maven2/net/onedaybeard/ecs/matrix-cli/0.1.0/matrix-cli-0.1.0.jar 
+- http://repo1.maven.org/maven2/net/onedaybeard/ecs/matrix-cli/0.1.0/matrix-cli-0.1.1.jar 
 
 
 ### Usage 
 ```
-$ java -jar matrix-cli/target/matrix-cli-0.1.0.jar 
+$ java -jar matrix-cli/target/matrix-cli-0.1.1.jar 
 Usage: matrix-cli-<version>.jar [options]
   Options:
   * -c, --class-folder
