@@ -23,7 +23,7 @@ public class MatrixCommand {
 		names = {"-l", "--label"},
 		description = "Project name, used as page title",
 		required = false)
-	private String projectName = "Unnamedz project";
+	private String projectName = "Unnamed project";
 	
 	@Parameter(
 		names = {"-c", "--class-folder"},
