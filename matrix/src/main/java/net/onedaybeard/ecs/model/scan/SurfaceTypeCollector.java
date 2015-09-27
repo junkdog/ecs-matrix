@@ -25,10 +25,10 @@ public class SurfaceTypeCollector extends ClassVisitor {
 			Type superType = TypeConfiguration.type(superName);
 			if (mainTypes.components.contains(superType)) {
 				resolver.components.add(TypeConfiguration.type(name));
-			} else if (mainTypes.systems.contains(superType)) {
-				resolver.systems.add(TypeConfiguration.type(name));
 			} else if (mainTypes.managers.contains(superType)) {
 				resolver.managers.add(TypeConfiguration.type(name));
+			} else if (mainTypes.systems.contains(superType)) {
+				resolver.systems.add(TypeConfiguration.type(name));
 			} else if (!name.endsWith("Impl") && interfaces.length > 0) {
 				for (String iface : interfaces) {
 					if (mainTypes.factories.contains(TypeConfiguration.type(iface))) {

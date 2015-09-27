@@ -4,11 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Type;
@@ -107,6 +103,8 @@ public final class ConfigurationResolver {
 		managers.removeAll(tc.managers);
 		components.removeAll(tc.components);
 		factories.removeAll(tc.factories);
+
+
 	}
 	
 	// TODO: merge with findArtemisType
