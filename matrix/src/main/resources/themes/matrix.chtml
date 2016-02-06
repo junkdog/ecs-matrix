@@ -15,11 +15,11 @@
 				Written by David Votrubec (davidjs.com) and
 				Michal Tehnik (@Mictech) for ST-Software.com
 				*/
-				
+
 				var cssClass = ((options) ? options.className : false) || "vertical";
-				
+
 				var cellsToRotate = $('.' + cssClass, this);
-				
+
 				var betterCells = [];
 				cellsToRotate.each(function () {
 					var cell = $(this)
@@ -28,20 +28,19 @@
 					, width = cell.width()
 					, newDiv = $('<div>', { height: width, width: height })
 					, newInnerDiv = $('<div>', { text: newText, 'class': 'rotated' });
-				
-					newInnerDiv.css('-webkit-transform-origin', (width / 2) + 'px ' + (width / 2) + 'px');
-					newInnerDiv.css('-moz-transform-origin', (width / 2) + 'px ' + (width / 2) + 'px');
+
+					newInnerDiv.css('transform-origin', (width / 2) + 'px ' + (width / 2) + 'px');
 					newDiv.append(newInnerDiv);
-					
+
 					betterCells.push(newDiv);
 				});
-			
+
 				cellsToRotate.each(function (i) {
 					$(this).html(betterCells[i]);
 				});
 			};
 		})(jQuery);
-		
+
 		$(document).ready(function(){
 			$('.matrix').rotateTableCellContent();
 		});
@@ -57,7 +56,7 @@
 				//})
 			}
 		})(jQuery);
-		
+
 		$(document).ready(function() {
 			$(document).doLegend('R', 'fa fa-check');
 			$(document).doLegend('A', 'fa fa-plus');
@@ -125,7 +124,7 @@
 
 				originalHeaderRow.addClass("tableFloatingHeaderOriginal");
 		});
-		
+
 			updateTableHeaders();
 			$(window).scroll(updateTableHeaders);
 			$(window).resize(updateTableHeaders);
@@ -133,11 +132,11 @@
 	</script>
 	<style type="text/css" title="currentStyle">
 		/* colors: http://colorschemedesigner.com/#2P42zm-vvz9N7 */
-		
+
 		/* Styles for rotateTableCellContent plugin*/
 		table div.rotated {
-		  -webkit-transform: rotate(270deg);
-		  -moz-transform: rotate(270deg);
+		  transform: rotate(270deg);
+		  transform: rotate(270deg);
 		  writing-mode:tb-rl;
 		  white-space: nowrap;
 		}
@@ -152,7 +151,7 @@
 			margin-left: 20px;
 			margin-right: 20px;
 		}
-		
+
 		body {
 			background-color: #e7e7e7;
 		}
@@ -168,7 +167,7 @@
 			margin-left: 20px;
 			margin-right: 20px;
 		}
-		
+
 		tr.systems:hover, .highlighted  {
 			background-color: #ffffdd;
 		}
