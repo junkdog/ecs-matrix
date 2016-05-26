@@ -1,10 +1,8 @@
 package net.onedaybeard.ecs.model.scan;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
-import lombok.ToString;
 
 import org.objectweb.asm.Type;
 
@@ -12,7 +10,6 @@ import org.objectweb.asm.Type;
  * Blob for an entity system or manager tracking references to
  * systems, managers and components.
  */
-@ToString
 public class EcsTypeData {
 	public final Set<Type> requires = new HashSet<Type>();
 	public final Set<Type> requiresOne = new HashSet<Type>();
@@ -34,5 +31,19 @@ public class EcsTypeData {
 		systems.remove(current);
 		managers.remove(current);
 		factories.remove(current);
+	}
+
+	@Override
+	public String toString() {
+		return "EcsTypeData[" +
+			"requires=" + requires +
+			", requiresOne=" + requiresOne +
+			", optional=" + optional +
+			", exclude=" + exclude +
+			", systems=" + systems +
+			", managers=" + managers +
+			", factories=" + factories +
+			", current=" + current +
+			']';
 	}
 }

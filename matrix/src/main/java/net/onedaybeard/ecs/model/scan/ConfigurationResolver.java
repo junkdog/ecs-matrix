@@ -1,9 +1,6 @@
 package net.onedaybeard.ecs.model.scan;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import org.objectweb.asm.ClassReader;
@@ -54,13 +51,13 @@ public final class ConfigurationResolver {
 		
 		List<File> classes = ClassFinder.find(rootFolder);
 		for (File f : classes) {
-			findExtendedArtemisTypes(f); // for resolving children of children
+			findExtendedEcsTypes(f); // for resolving children of children
 		}
 		
 		resolveExtendedTypes(typeConfiguration, parentChildrenMap);
 		
 		for (File f : classes) {
-			findArtemisTypes(f);
+			findEcsTypes(f);
 		}
 	}
 
@@ -108,7 +105,7 @@ public final class ConfigurationResolver {
 	}
 	
 	// TODO: merge with findArtemisType
-	private void findExtendedArtemisTypes(FileInputStream stream) {
+	private void findExtendedEcsTypes(FileInputStream stream) {
 		ClassReader cr;
 		try {
 			cr = new ClassReader(stream);
@@ -125,15 +122,15 @@ public final class ConfigurationResolver {
 		}
 	}
 
-	private void findExtendedArtemisTypes(File file) {
+	private void findExtendedEcsTypes(File file) {
 		try {
-			findExtendedArtemisTypes(new FileInputStream(file));
+			findExtendedEcsTypes(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
 			System.err.println("not found: " + file);
 		}
 	}
 
-	private void findEcsTypes(FileInputStream stream) {
+	private void findEcsTypes(InputStream stream) {
 		ClassReader cr;
 		try {
 			cr = new ClassReader(stream);
@@ -150,7 +147,7 @@ public final class ConfigurationResolver {
 		}
 	}
 	
-	private void findArtemisTypes(File file) {
+	private void findEcsTypes(File file) {
 		try {
 			findEcsTypes(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
