@@ -135,8 +135,6 @@
 
 		/* Styles for rotateTableCellContent plugin*/
 		table div.rotated {
-		  transform: rotate(270deg);
-		  transform: rotate(270deg);
 		  writing-mode:tb-rl;
 		  white-space: nowrap;
 		}
