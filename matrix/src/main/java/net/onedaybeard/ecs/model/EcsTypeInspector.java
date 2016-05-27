@@ -27,7 +27,7 @@ public class EcsTypeInspector {
 				&& initialTypeScan.managers.size() == 0
 				&& initialTypeScan.factories.size() == 0) {
 
-			String error = "No artemis classes found on classpath. "
+			String error = "No ECS classes found on classpath. "
 					+ "See https://github.com/junkdog/artemis-odb/wiki/Component-Dependency-Matrix for more info.";
 			throw new RuntimeException(error);
 		}
