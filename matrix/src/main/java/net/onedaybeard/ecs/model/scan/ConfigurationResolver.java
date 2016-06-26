@@ -27,10 +27,10 @@ public final class ConfigurationResolver {
 	public final ClassStore store;
 	
 	public ConfigurationResolver(File folderOrJar, String ecsResourcePrefix) {
-		this(ecsResourcePrefix, folderOrJar.toURI());
+		this(Arrays.asList(folderOrJar.toURI()), ecsResourcePrefix);
 	}
 
-	public ConfigurationResolver(String ecsResourcePrefix, URI... folderOrJars) {
+	public ConfigurationResolver(List<URI> folderOrJars, String ecsResourcePrefix) {
 		this.resourcePrefix = ecsResourcePrefix;
 
 		managers = new HashSet<>();
@@ -48,7 +48,7 @@ public final class ConfigurationResolver {
 		aspectRequireOne = typeConfiguration.aspectRequireOne;
 		aspectExclude = typeConfiguration.aspectExclude;
 
-		store = new ClassStore(this, Arrays.asList(folderOrJars));
+		store = new ClassStore(this, folderOrJars);
 	}
 
 	public void clearDefaultTypes() {

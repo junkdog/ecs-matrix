@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -18,21 +19,22 @@ import com.x5.template.Theme;
 import static java.util.Arrays.asList;
 
 public class ComponentDependencyMatrix implements Opcodes  {
-	private final File root;
+	private final List<URI> files;
 	private final File output;
 	private final String projectName;
 
-	public ComponentDependencyMatrix(String projectName, File root, File output) {
+	public ComponentDependencyMatrix(String projectName, List<URI> files, File output) {
 		this.projectName = projectName;
-		this.root = root;
+		this.files = files;
 		this.output = output;
 	}
 	
 	public String detectAndProcess() {
 		EcsTypeInspector typeInspector;
 
+		// TODO: get classpath and/or deps
 		for (String ecs : asList("artemis", "ashley")) {
-			typeInspector = new EcsTypeInspector(root, "/" + ecs);
+			typeInspector = new EcsTypeInspector(files, "/" + ecs);
 			if (typeInspector.foundEcsClasses()) {
 				process(typeInspector);
 				return "Found ECS framework: " + ecs;
@@ -47,8 +49,7 @@ public class ComponentDependencyMatrix implements Opcodes  {
 	}
 
 	public void process(String resourcePrefix) {
-		EcsTypeInspector typeInspector = new EcsTypeInspector(root, resourcePrefix);
-		process(typeInspector);
+		process(new EcsTypeInspector(files, resourcePrefix));
 	}
 
 	private void process(EcsTypeInspector typeInspector) {

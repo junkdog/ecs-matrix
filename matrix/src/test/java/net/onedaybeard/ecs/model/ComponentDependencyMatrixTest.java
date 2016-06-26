@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class ComponentDependencyMatrixTest {
 
@@ -25,7 +26,7 @@ public class ComponentDependencyMatrixTest {
 	public void ensureNoErrors() {
 		ComponentDependencyMatrix cdm =	new ComponentDependencyMatrix(
 			"test project",
-			TestHelper.classRootPath(),
+			Arrays.asList(TestHelper.classRootPath().toURI()),
 			output);
 
 		cdm.process();

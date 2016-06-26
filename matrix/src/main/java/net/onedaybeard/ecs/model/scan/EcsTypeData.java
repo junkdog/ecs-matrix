@@ -40,14 +40,14 @@ public class EcsTypeData implements Comparable<EcsTypeData> {
 	@Override
 	public String toString() {
 		return "EcsTypeData[" +
-			"requires=" + requires +
+			"current=" + current +
+			", requires=" + requires +
 			", requiresOne=" + requiresOne +
 			", optional=" + optional +
 			", exclude=" + exclude +
 			", systems=" + systems +
 			", managers=" + managers +
 			", factories=" + factories +
-			", current=" + current +
 			']';
 	}
 

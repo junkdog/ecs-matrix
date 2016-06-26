@@ -14,10 +14,7 @@ public class EcsMapping {
 	public EcsMapping(ConfigurationResolver resolver, List<EcsTypeData> artemisTypes) {
 		SortedSet<Type> componentSet = findComponents(artemisTypes);
 
-		// removes any artemis classes which aren't part of artemis
-		resolver.clearDefaultTypes();
-
-		typeMappings = new ArrayList<RowTypeMapping>();
+		typeMappings = new ArrayList<>();
 		Map<Type, Integer> componentIndices = getComponentIndices(componentSet);
 		for (EcsTypeData system : artemisTypes) {
 			RowTypeMapping mappedType = RowTypeMapping.from(

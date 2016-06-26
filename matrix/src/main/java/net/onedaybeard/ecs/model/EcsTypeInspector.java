@@ -5,6 +5,7 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Type;
 
 import java.io.File;
+import java.net.URI;
 import java.util.*;
 
 /**
@@ -14,8 +15,8 @@ public class EcsTypeInspector {
 	private EcsMapping model = null;
 	private final ConfigurationResolver initialTypeScan;
 
-	public EcsTypeInspector(File root, String resourcePrefix) {
-		this.initialTypeScan = new ConfigurationResolver(root, resourcePrefix);
+	public EcsTypeInspector(List<URI> files, String resourcePrefix) {
+		this.initialTypeScan = new ConfigurationResolver(files, resourcePrefix);
 
 		if (initialTypeScan.components.size() == 0
 				&& initialTypeScan.systems.size() == 0
@@ -26,10 +27,13 @@ public class EcsTypeInspector {
 					+ "See https://github.com/junkdog/artemis-odb/wiki/Component-Dependency-Matrix for more info.";
 			throw new RuntimeException(error);
 		}
+		// removes framework classes
+		initialTypeScan.clearDefaultTypes();
 
 		List<EcsTypeData> ecsTypes = findEcsTypes(initialTypeScan.store);
 		if (ecsTypes.size() == 0)
 			return;
+
 
 		model = new EcsMapping(initialTypeScan, ecsTypes);
 	}

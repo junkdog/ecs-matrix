@@ -34,12 +34,12 @@ public class TypeConfiguration {
 	}
 
 	private void loadTypes() {
-		Map<String, Set<Type>> keyToTypes = new HashMap<String, Set<Type>>();
+		Map<String, Set<Type>> keyToTypes = new HashMap<>();
 		keyToTypes.put("COMPONENTS", components);
 		keyToTypes.put("SYSTEMS", systems);
 		keyToTypes.put("MANAGERS", managers);
 		keyToTypes.put("FACTORIES", factories);
-		keyToTypes.put("MAPPER", new HashSet<Type>());
+		keyToTypes.put("MAPPER", new HashSet<>());
 
 		InputStream is = null;
 		Set<Type> current = null;
