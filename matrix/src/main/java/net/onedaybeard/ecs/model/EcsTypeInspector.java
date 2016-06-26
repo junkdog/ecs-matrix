@@ -1,15 +1,10 @@
 package net.onedaybeard.ecs.model;
 
-import net.onedaybeard.ecs.model.scan.ConfigurationResolver;
-import net.onedaybeard.ecs.model.scan.EcsTypeData;
-import net.onedaybeard.ecs.util.ClassFinder;
+import net.onedaybeard.ecs.model.scan.*;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.Type;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -32,7 +27,7 @@ public class EcsTypeInspector {
 			throw new RuntimeException(error);
 		}
 
-		List<EcsTypeData> ecsTypes = findEcsTypes(root);
+		List<EcsTypeData> ecsTypes = findEcsTypes(initialTypeScan.store);
 		if (ecsTypes.size() == 0)
 			return;
 
@@ -43,7 +38,7 @@ public class EcsTypeInspector {
 		assert model != null;
 
 		String common = findCommonPackage(model.typeMappings);
-		SortedMap<String, List<RowTypeMapping>> map = new TreeMap<String, List<RowTypeMapping>>();
+		SortedMap<String, List<RowTypeMapping>> map = new TreeMap<>();
 		for (int i = 0, s = model.typeMappings.size(); s > i; i++) {
 			RowTypeMapping system = model.typeMappings.get(i);
 			String packageName = toPackageName(system.ecsType.getClassName());
@@ -51,7 +46,7 @@ public class EcsTypeInspector {
 					? packageName.substring(common.length())
 					: ".";
 			if (!map.containsKey(packageName))
-				map.put(packageName, new ArrayList<RowTypeMapping>());
+				map.put(packageName, new ArrayList<>());
 
 			map.get(packageName).add(system);
 		}
@@ -68,39 +63,32 @@ public class EcsTypeInspector {
 		return model != null;
 	}
 
-	private List<EcsTypeData> findEcsTypes(File root) {
-		List<EcsTypeData> systems = new ArrayList<EcsTypeData>();
-		for (File f : ClassFinder.find(root))
-			inspectType(f, systems);
+	private List<EcsTypeData> findEcsTypes(ClassStore store) {
+		List<EcsTypeData> types = new ArrayList<>();
+		store.classes.stream()
+			.filter(t -> isEcsType(t.type))
+			.map(t -> ecsTypeData(t))
+			.sorted()
+			.forEach(types::add);
 
-		Collections.sort(systems, new TypeComparator());
-		return systems;
+		return types;
 	}
 
-	private void inspectType(File file, List<EcsTypeData> destination) {
-		FileInputStream stream = null;
-		try {
-			stream = new FileInputStream(file);
-			ClassReader cr = new ClassReader(stream);
-			Type objectType = Type.getObjectType(cr.getClassName());
-			if (!isEcsType(objectType))
-				return;
 
-			EcsTypeData meta = initialTypeScan.scan(cr);
-			meta.current = objectType;
-			destination.add(meta);
-		} catch (FileNotFoundException e) {
-			System.err.println("not found: " + file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (stream != null) try {
-				stream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+	private EcsTypeData ecsTypeData(ClassData classData) {
+		return ecsTypeData(classData.classReader());
 	}
+
+	private EcsTypeData ecsTypeData(ClassReader cr) {
+		EcsTypeData info = new EcsTypeData();
+		info.current = Type.getObjectType(cr.getClassName());
+
+		EcsScanner typeScanner = new EcsScanner(info, initialTypeScan);
+		cr.accept(typeScanner, 0);
+
+		return info;
+	}
+
 
 	private boolean isEcsType(Type objectType) {
 		return initialTypeScan.managers.contains(objectType)
@@ -125,12 +113,5 @@ public class EcsTypeInspector {
 
 	private static String toPackageName(String className) {
 		return className.substring(0, className.lastIndexOf('.'));
-	}
-
-	private static class TypeComparator implements Comparator<EcsTypeData> {
-		@Override
-		public int compare(EcsTypeData o1, EcsTypeData o2) {
-			return o1.current.toString().compareTo(o2.current.toString());
-		}
 	}
 }

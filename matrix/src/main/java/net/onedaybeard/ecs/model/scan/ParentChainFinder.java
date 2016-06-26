@@ -10,6 +10,10 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
+/**
+ * Builds relationship pairs of parent-child classes - different children may overwrite
+ * the previous parent, but it's sufficient to detect if it's an ECS class or not.
+ */
 public class ParentChainFinder extends ClassVisitor {
 
 	private Map<Type,Set<Type>> parentChildrenMap;
@@ -35,10 +39,8 @@ public class ParentChainFinder extends ClassVisitor {
 	}
 
 	private void addToMap(Type parent, Type child) {
-		if (!parentChildrenMap.containsKey(parent))
-			parentChildrenMap.put(parent, new HashSet<Type>());
-		
-		parentChildrenMap.get(parent).add(child);
+		parentChildrenMap
+			.computeIfAbsent(parent, t -> new HashSet<>())
+			.add(child);
 	}
-
 }

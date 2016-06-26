@@ -10,18 +10,18 @@ import org.objectweb.asm.Type;
  * Blob for an entity system or manager tracking references to
  * systems, managers and components.
  */
-public class EcsTypeData {
-	public final Set<Type> requires = new HashSet<Type>();
-	public final Set<Type> requiresOne = new HashSet<Type>();
-	public final Set<Type> optional = new HashSet<Type>();
-	public final Set<Type> exclude = new HashSet<Type>();
-	public final Set<Type> systems = new HashSet<Type>();
-	public final Set<Type> managers = new HashSet<Type>();
-	public final Set<Type> factories = new HashSet<Type>();
+public class EcsTypeData implements Comparable<EcsTypeData> {
+	public final Set<Type> requires = new HashSet<>();
+	public final Set<Type> requiresOne = new HashSet<>();
+	public final Set<Type> optional = new HashSet<>();
+	public final Set<Type> exclude = new HashSet<>();
+	public final Set<Type> systems = new HashSet<>();
+	public final Set<Type> managers = new HashSet<>();
+	public final Set<Type> factories = new HashSet<>();
 
 	public Type current;
 	
-	EcsTypeData() {}
+	public EcsTypeData() {}
 
 	public void cleanSelfTypeReferences() {
 		requires.remove(current);
@@ -31,6 +31,10 @@ public class EcsTypeData {
 		systems.remove(current);
 		managers.remove(current);
 		factories.remove(current);
+	}
+
+	public Type current() {
+		return current;
 	}
 
 	@Override
@@ -45,5 +49,10 @@ public class EcsTypeData {
 			", factories=" + factories +
 			", current=" + current +
 			']';
+	}
+
+	@Override
+	public int compareTo(EcsTypeData o) {
+		return current.toString().compareTo(o.current.toString());
 	}
 }

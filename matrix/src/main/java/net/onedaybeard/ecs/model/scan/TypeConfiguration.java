@@ -11,7 +11,7 @@ import org.objectweb.asm.Type;
  * Default ECS classes for each family of classes (systems,
  * components, managers and factories).
  */
-class TypeConfiguration {
+public class TypeConfiguration {
 	private String resourcePrefix;
 	protected Set<Type> components;
 	protected Set<Type> managers;
@@ -24,10 +24,10 @@ class TypeConfiguration {
 	String[] aspectExclude;
 
 	public TypeConfiguration(String resourcePrefix) {
-		components = new HashSet<Type>();
-		managers = new HashSet<Type>();
-		systems = new HashSet<Type>();
-		factories = new HashSet<Type>();
+		components = new HashSet<>();
+		managers = new HashSet<>();
+		systems = new HashSet<>();
+		factories = new HashSet<>();
 		this.resourcePrefix = resourcePrefix;
 		loadTypes();
 		loadAspectMethods();

@@ -3,12 +3,12 @@ package net.onedaybeard.ecs.model.scan;
 
 import org.objectweb.asm.*;
 
-class EcsScanner extends ClassVisitor {
+public class EcsScanner extends ClassVisitor {
 	
 	private final EcsTypeData config;
 	private final ConfigurationResolver resolver;
 
-	EcsScanner(EcsTypeData config, ConfigurationResolver configurationResolver) {
+	public EcsScanner(EcsTypeData config, ConfigurationResolver configurationResolver) {
 		super(Opcodes.ASM4);
 		this.config = config;
 		this.resolver = configurationResolver;
