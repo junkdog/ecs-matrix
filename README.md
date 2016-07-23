@@ -19,12 +19,12 @@ $ mvn clean package
 
 
 ### Downloading
-- http://repo1.maven.org/maven2/net/onedaybeard/ecs/matrix-cli/0.1.2/matrix-cli-0.1.2.jar 
+- http://repo1.maven.org/maven2/net/onedaybeard/ecs/matrix-cli/0.2.0/matrix-cli-0.2.0.jar 
 
 
 ### Usage 
 ```
-$ java -jar matrix-cli/target/matrix-cli-0.1.2.jar 
+$ java -jar matrix-cli/target/matrix-cli-0.2.0.jar 
 Usage: matrix-cli-<version>.jar [options]
   Options:
   * -c, --class-folder
@@ -44,7 +44,7 @@ Usage: matrix-cli-<version>.jar [options]
 #### Example
 ```
 $ cd ashley-superjumper/
-$ java -jar /path/to/matrix-cli-0.1.2.jar \
+$ java -jar /path/to/matrix-cli-0.2.0.jar \
 > -c core/build/classes/main/ \
 > -l "Ashley SuperJumper"
 Found ECS framework: ashley
