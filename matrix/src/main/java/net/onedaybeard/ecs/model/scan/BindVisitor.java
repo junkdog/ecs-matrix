@@ -9,7 +9,7 @@ class BindVisitor extends AnnotationVisitor {
 	private final ConfigurationResolver resolver;
 
 	public BindVisitor(EcsTypeData config, ConfigurationResolver resolver) {
-		super(Opcodes.ASM4);
+		super(Opcodes.ASM7);
 		this.config = config;
 		this.resolver = resolver;
 	}
@@ -29,7 +29,7 @@ class BindVisitor extends AnnotationVisitor {
 		private final ConfigurationResolver resolver;
 
 		public BindValueVisitor(EcsTypeData config, ConfigurationResolver resolver) {
-			super(Opcodes.ASM4);
+			super(Opcodes.ASM7);
 			this.config = config;
 			this.resolver = resolver;
 		}

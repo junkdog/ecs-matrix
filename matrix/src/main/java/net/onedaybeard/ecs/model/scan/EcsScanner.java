@@ -9,7 +9,7 @@ public class EcsScanner extends ClassVisitor {
 	private final ConfigurationResolver resolver;
 
 	public EcsScanner(EcsTypeData config, ConfigurationResolver configurationResolver) {
-		super(Opcodes.ASM4);
+		super(Opcodes.ASM7);
 		this.config = config;
 		this.resolver = configurationResolver;
 	}

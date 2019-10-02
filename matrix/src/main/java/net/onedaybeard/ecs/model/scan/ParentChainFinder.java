@@ -19,7 +19,7 @@ public class ParentChainFinder extends ClassVisitor {
 	private Map<Type,Set<Type>> parentChildrenMap;
 
 	public ParentChainFinder(Map<Type,Set<Type>> parentChildrenMap) {
-		super(Opcodes.ASM4);
+		super(Opcodes.ASM7);
 		this.parentChildrenMap = parentChildrenMap;
 	}
 	

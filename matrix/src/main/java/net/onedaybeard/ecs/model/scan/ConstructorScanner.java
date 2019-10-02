@@ -1,6 +1,6 @@
 package net.onedaybeard.ecs.model.scan;
 
-import static org.objectweb.asm.Opcodes.ASM4;
+import static org.objectweb.asm.Opcodes.ASM7;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public final class ConstructorScanner extends MethodVisitor {
 	private final Set<Type> queuedComponents;
 	
 	public ConstructorScanner(EcsTypeData config, ConfigurationResolver resolver) {
-		super(ASM4);
+		super(ASM7);
 		this.config = config;
 		this.resolver = resolver;
 		queuedComponents = new HashSet<Type>();
@@ -32,7 +32,7 @@ public final class ConstructorScanner extends MethodVisitor {
 	}
 	
 	@Override
-	public void visitMethodInsn(int opcode, String owner, String name, String desc) {
+	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean isInterface) {
 		if (Arrays.binarySearch(resolver.aspectRequire, name) >= 0) {
 			config.requires.addAll(queuedComponents);
 			queuedComponents.clear();
@@ -44,6 +44,6 @@ public final class ConstructorScanner extends MethodVisitor {
 			queuedComponents.clear();
 		}
 		
-		super.visitMethodInsn(opcode, owner, name, desc);
+		super.visitMethodInsn(opcode, owner, name, desc, isInterface);
 	}
 }
