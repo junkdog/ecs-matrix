@@ -13,7 +13,7 @@ public class AnotherSystem extends EntityProcessingSystem {
 	private ExtSomeSystem someSystem;
 
 	public AnotherSystem() {
-		super(Aspect.getAspectForAll(Position.class).one( Velocity.class));
+		super(Aspect.all(Position.class).one( Velocity.class));
 	}
 
 	@Override

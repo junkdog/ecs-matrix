@@ -11,12 +11,15 @@ import static org.junit.Assert.assertNotNull;
 public class EcsTypeInspectorTest {
 	private static EcsTypeInspector inspector;
 	private static MatrixData matrix;
+    private static SortedMap<String, List<RowTypeMapping>> typeMap;
 
 	@BeforeClass
 	public static void init() {
 		inspector = new EcsTypeInspector(Arrays.asList(TestHelper.classRootPath().toURI()), "");
 		matrix = inspector.getMatrixData();
 		assertNotNull(matrix);
+		typeMap = inspector.getTypeMap();
+		assertNotNull(typeMap);
 	}
 
 	@Test
@@ -25,14 +28,11 @@ public class EcsTypeInspectorTest {
 			Arrays.asList(
 				"ExtPosition",
 				"Position",
-				"Velocity"),
+				"Velocity",
+                "AllComponent",
+                "OneComponent",
+                "ExcludeComponent"),
 			matrix.componentColumns);
-	}
-
-	@Test
-	public void matrixFactoryTest() {
-		assertTypes(Arrays.asList("FactoryA"),
-			inspector.getMatrixData().factoryColumns);
 	}
 
 	@Test

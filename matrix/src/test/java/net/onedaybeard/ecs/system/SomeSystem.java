@@ -12,7 +12,7 @@ public class SomeSystem extends EntityProcessingSystem {
 	private AnotherSystem anotherSystem;
 
 	public SomeSystem() {
-		super(Aspect.getAspectForAll(ExtPosition.class).exclude(Position.class));
+		super(Aspect.all(ExtPosition.class).exclude(Position.class));
 	}
 
 	@Override

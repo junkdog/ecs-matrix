@@ -20,7 +20,7 @@ public class MethodScanner extends MethodVisitor {
 	@Override
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
 		if (BindVisitor.accepts(desc)) {
-			return new BindVisitor(config, resolver);
+			return new BindVisitor(config);
 		} else {
 			return super.visitAnnotation(desc, visible);
 		}

@@ -14,6 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<asm.version>7.2</asm.version>
 		<junit.version>4.11</junit.version>
+		<artemis.version>2.2.0</artemis.version>
 	</properties>
 
 	<scm>
