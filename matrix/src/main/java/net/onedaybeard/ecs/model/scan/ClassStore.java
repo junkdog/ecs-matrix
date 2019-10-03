@@ -82,10 +82,19 @@ public class ClassStore {
 
 	private static FileSystem fileSystem(URI file) {
 		try {
-			return FileSystems.newFileSystem(Paths.get(file.getPath()), null);
+			return FileSystems.newFileSystem(Paths.get(cleanedPath(file)), null);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private static String cleanedPath(URI file) {
+	    String path = file.getPath();
+	    if (path.matches("^/[^:/]+:/.*")) {
+	        return path.substring(1);
+	    }
+	    
+	    return path;
 	}
 
 	private static Stream<Path> walk(Path path) {
