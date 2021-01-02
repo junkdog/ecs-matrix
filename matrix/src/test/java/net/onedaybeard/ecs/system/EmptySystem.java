@@ -1,8 +1,8 @@
 package net.onedaybeard.ecs.system;
 
-import com.artemis.systems.VoidEntitySystem;
+import com.artemis.BaseSystem;
 
-public class EmptySystem extends VoidEntitySystem {
+public class EmptySystem extends BaseSystem {
 	@Override
 	protected void processSystem() {}
 }

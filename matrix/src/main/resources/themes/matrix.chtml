@@ -218,54 +218,54 @@
 			<thead style="background-color: #eee;">
 				<tr>
 					<th style="color: rgba(0,0,0,0)">{$longestName}</th>
-					{.loop in $headersComponents as $header first_last="true"}
-					<th class="vertical{.if ($is_first)} separator{/if}">{$header}</th>
-					{.onEmpty}
-					{/loop}
-					{.loop in $headersManagers as $header first_last="true"}
-					<th class="vertical{.if ($is_first)} separator{/if}">{$header}</th>
-					{.onEmpty}
-					{/loop}
-					{.loop in $headersSystems as $header first_last="true"}
-					<th class="vertical{.if ($is_first)} separator{/if}">{$header}</th>
-					{.onEmpty}
-					{/loop}
-					{.loop in $headersFactories as $header first_last="true"}
-					<th class="vertical{.if ($is_first)} separator{/if}">{$header}</th>
-					{.onEmpty}
-					{/loop}
+					{% loop in $headersComponents as $header first_last="true" %}
+					<th class="vertical{% if ($is_first) %} separator{% endif %}">{$header}</th>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $headersManagers as $header first_last="true" %}
+					<th class="vertical{% if ($is_first) %} separator{% endif %}">{$header}</th>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $headersSystems as $header first_last="true" %}
+					<th class="vertical{% if ($is_first) %} separator{% endif %}">{$header}</th>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $headersFactories as $header first_last="true" %}
+					<th class="vertical{% if ($is_first) %} separator{% endif %}">{$header}</th>
+					{% onEmpty %}
+					{% endloop %}
 				</tr>
 			</thead>
 			<tbody>
-				{.loop in $rows as $row}
-				{.if ($row.is_package)}
+				{% loop in $rows as $row %}
+				{% if ($row.is_package) %}
 				<tr class="systems">
 					<th style="padding-left: 5px; font-weight: bold; text-align: left;">{$row.name}	</th>
 				</tr>
-				{.else}
+				{% else %}
 				<tr class="systems">
 					<th class="horizontal" style="padding-right: 5px;">{$row.name}
 						<i class="fa fa-{$row.symbol}"></i>
 					</th>
-					{.loop in $row.component_indices as $component first_last="true"}
-					<td class="{$component.symbol}{.if ($is_first)} separator{/if}"></td>
-					{.onEmpty}
-					{/loop}
-					{.loop in $row.manager_indices as $man first_last="true"}
-					<td class="{$man.symbol}{.if ($is_first)} separator{/if}"></td>
-					{.onEmpty}
-					{/loop}
-					{.loop in $row.system_indices as $sys first_last="true"}
-					<td class="{$sys.symbol}{.if ($is_first)} separator{/if}"></td>
-					{.onEmpty}
-					{/loop}
-					{.loop in $row.factory_indices as $fac first_last="true"}
-					<td class="{$fac.symbol}{.if ($is_first)} separator{/if}"></td>
-					{.onEmpty}
-					{/loop}
+					{% loop in $row.component_indices as $component first_last="true" %}
+					<td class="{$component.symbol}{% if ($is_first) %} separator{% endif %}"></td>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $row.manager_indices as $man first_last="true" %}
+					<td class="{$man.symbol}{% if ($is_first) %} separator{% endif %}"></td>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $row.system_indices as $sys first_last="true" %}
+					<td class="{$sys.symbol}{% if ($is_first) %} separator{% endif %}"></td>
+					{% onEmpty %}
+					{% endloop %}
+					{% loop in $row.factory_indices as $fac first_last="true" %}
+					<td class="{$fac.symbol}{% if ($is_first) %} separator{% endif %}"></td>
+					{% onEmpty %}
+					{% endloop %}
 				</tr>
-				{/if}
-				{/loop}
+				{% endif %}
+				{% endloop %}
 			<tbody>
 		</table>
 		<table border="0" class="matrix" style="padding: 5px">

@@ -1,12 +1,16 @@
 package com.artemis.cli;
 
 import java.io.File;
-import java.util.Arrays;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.artemis.cli.converter.FileOutputConverter;
-import com.artemis.cli.converter.FolderConverter;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
+import com.beust.jcommander.converters.FileConverter;
+
 import net.onedaybeard.ecs.model.ComponentDependencyMatrix;
 
 @Parameters(
@@ -29,9 +33,9 @@ public class MatrixCommand {
 	@Parameter(
 		names = {"-c", "--class-folder"},
 		description = "Root class folder",
-		converter = FolderConverter.class,
+		converter = FileConverter.class,
 		required = true)
-	private File classRoot;
+	private final List<File> classRoot = new ArrayList<>();
 	
 	@Parameter(
 		names = {"-o", "--output"},
@@ -42,7 +46,13 @@ public class MatrixCommand {
 	
 	void execute() {
 		ComponentDependencyMatrix cdm =
-			new ComponentDependencyMatrix(projectName, Arrays.asList(classRoot.toURI()), output);
+			new ComponentDependencyMatrix(projectName, convert(classRoot), output);
 		System.out.println(cdm.detectAndProcess());
+	}
+	
+	private List<URI> convert(List<File> files) {
+	    return files.stream()
+	            .map(File::toURI)
+	            .collect(Collectors.toList());
 	}
 }

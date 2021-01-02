@@ -1,6 +1,6 @@
 package net.onedaybeard.ecs.model.scan;
 
-import static org.objectweb.asm.Opcodes.ASM4;
+import static org.objectweb.asm.Opcodes.ASM7;
 
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.MethodVisitor;
@@ -12,7 +12,7 @@ public class MethodScanner extends MethodVisitor {
 	private ConfigurationResolver resolver;
 
 	public MethodScanner(EcsTypeData config, ConfigurationResolver resolver) {
-		super(ASM4);
+		super(ASM7);
 		this.config = config;
 		this.resolver = resolver;
 	}
@@ -20,7 +20,7 @@ public class MethodScanner extends MethodVisitor {
 	@Override
 	public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
 		if (BindVisitor.accepts(desc)) {
-			return new BindVisitor(config, resolver);
+			return new BindVisitor(config);
 		} else {
 			return super.visitAnnotation(desc, visible);
 		}

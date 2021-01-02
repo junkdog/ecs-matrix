@@ -14,7 +14,7 @@ public class SurfaceTypeCollector extends ClassVisitor {
 	private ConfigurationResolver resolver;
 
 	public SurfaceTypeCollector(ConfigurationResolver resolver) {
-		super(Opcodes.ASM4);
+		super(Opcodes.ASM7);
 		this.resolver = resolver;
 		this.mainTypes = resolver.typeConfiguration;
 	}
